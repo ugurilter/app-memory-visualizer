@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>App Memory Visualizer</title>
+
+    <link rel="shortcut icon" href="#" />
+    <link rel="stylesheet" type="text/css" href="css/keen-dashboards.css">
+
+    <script src="js/jquery-3.5.1.slim.min.js"></script>
+    <script src="js/Chart.min.js"></script>
+    <script src="js/script.js"></script>
+	<style>
+
+	</style>
+</head>
+
+<body class="keen-dashboard">
+    <div class="container">
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <img id="loaderImg" src="">
+            </div>
+            <div class="navbar-collapse">
+                <ul class="navbar-nav nav main-nav">
+                <li><a href="#">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container grid grid-simple-col-2">
+            <div class="chart-wrapper">
+                <div class="chart-title"> air4971.local </div>
+                <div class="chart-stage">
+                    <div id="grid-1-1">
+                        <canvas id="chart-1"></canvas>
+                    </div>
+                </div>
+                <div class="chart-notes">
+                    <div class=""></div>
+                    <input type="checkbox" id="limit-1" name="limit-1">
+                    <label for="limit-1">Limit History</label>
+                </div>
+            </div>
+            <div class="chart-wrapper">
+                <div class="chart-title"> air4971-2.local </div>
+                <div class="chart-stage">
+                    <canvas id="chart-2"></canvas>
+                </div>
+                <div class="chart-notes">
+                    <div class=""></div>
+                    <input type="checkbox" id="limit-2" name="limit-2">
+                    <label for="limit-2">Limit History</label>  
+                </div>
+            </div>
+    </div>
+
+    <div class="container">
+        <p class="small text-muted">developed by <a href="mailto:ugur.ilter@airties.com">ugur.ilter</a> - Sep 2020</p>
+    </div>
+</body>
+
+</html>
