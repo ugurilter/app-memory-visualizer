@@ -112,7 +112,7 @@ def telnet_exec(s, cmd):
     return out.decode('ascii')
 
 if __name__ == '__main__':
-    command = 'PID=$(pidof {}) && cat /proc/$PID/status | grep Vm'.format(sys.argv[1]);
+    command = 'PID=$(pidof {}) && cat /proc/$PID/status | grep Vm'.format(sys.argv[1])
 
     sessions = []
     sessions.append(tn_session('air4971.local', 'admin', 'nrhkym4938'))
