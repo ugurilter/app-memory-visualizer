@@ -6,6 +6,7 @@ import time
 import json
 import telnetlib
 import requests
+import configparser
 from parse import parse
 
 class tn_session:
@@ -111,12 +112,40 @@ def telnet_exec(s, cmd):
     out = inst.read_until(b"# ")
     return out.decode('ascii')
 
-if __name__ == '__main__':
-    command = 'PID=$(pidof {}) && cat /proc/$PID/status | grep Vm'.format(sys.argv[1])
+def get_config(cfile):
+    config = []
+    try:
+        parser = configparser.ConfigParser()
+        parser.read(cfile)
+    except configparser.ParsingError:
+        print('Could not parse config')
+        return None
 
+    print(parser.sections())
+
+    for elem in parser.sections():
+        dev = {}
+        for name, value in parser.items(elem):
+            dev[name] = value
+        config.append(dev)
+
+    return config
+
+if __name__ == '__main__':
+
+    config = get_config("config.ini")
+
+    print(config)
+
+    command = 'PID=$(pidof {}) && cat /proc/$PID/status | grep Vm'.format(sys.argv[1])
+    
     sessions = []
-    sessions.append(tn_session('air4971.local', 'admin', 'nrhkym4938'))
-    sessions.append(tn_session('air4971-2.local', 'admin', 'hkccwd7949'))
+
+    for node in config:
+        sessions.append(tn_session(
+            "{}.local".format(node['mac']),
+            node['user'],
+            node['passw']))
 
     for s in sessions:
         telnet_login(s)

@@ -7,4 +7,4 @@ python3 -m http.server &
 ```
 
 screenshot:
-[![](screen.png)]
+[!(screen.png)]

@@ -96,7 +96,7 @@ async function update_chart()
 
     for (i = 0; i < 2; i++)  {
         $(`#chart-${i + 1}`).replaceWith(`<canvas id="chart-${i + 1}"></canvas>`);
-        $('.chartjs-size-monitor').remove();
+        //$('.chartjs-size-monitor').remove();
         draw_chart(chartdata_list[i]);
     }
     
