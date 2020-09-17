@@ -97,12 +97,18 @@ class mem_unit:
 
 def telnet_login(s):
     inst = s.instance
-    inst.read_until(b"Login: ")
-    inst.write(s.uname.encode('ascii') + b"\n")
-    inst.read_until(b"Password: ")
-    inst.write(s.passw.encode('ascii') + b"\n")
-    inst.read_until(b" > ")
-    inst.write("sh".encode('ascii') + b"\n")
+
+    if s.passw != '':
+        inst.read_until(b"Login: ")
+        inst.write(s.uname.encode('ascii') + b"\n")
+        inst.read_until(b"Password: ")
+        inst.write(s.passw.encode('ascii') + b"\n")
+        inst.read_until(b" > ")
+        inst.write("sh".encode('ascii') + b"\n")
+    else:
+        inst.read_until(b"login: ")
+        inst.write(s.uname.encode('ascii') + b"\n")
+
     inst.read_until(b"# ")
     return
 
@@ -121,8 +127,6 @@ def get_config(cfile):
         print('Could not parse config')
         return None
 
-    print(parser.sections())
-
     for elem in parser.sections():
         dev = {}
         for name, value in parser.items(elem):
@@ -132,14 +136,10 @@ def get_config(cfile):
     return config
 
 if __name__ == '__main__':
+    command = 'PID=$(pidof {}) && cat /proc/$PID/status | grep Vm'.format(sys.argv[1])
+    sessions = []
 
     config = get_config("config.ini")
-
-    print(config)
-
-    command = 'PID=$(pidof {}) && cat /proc/$PID/status | grep Vm'.format(sys.argv[1])
-    
-    sessions = []
 
     for node in config:
         sessions.append(tn_session(
